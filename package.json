@@ -1,0 +1,22 @@
+{
+  "name": "news",
+  "version": "1.0.0",
+  "description": "news is website that use to read a all news and comment and like or unlike the news and can also be notified for new post news.  admin can see all subscribers , post a new news, update and delete the news.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Franklin-pro/news.git"
+  },
+  "author": "Franklin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Franklin-pro/news/issues"
+  },
+  "homepage": "https://github.com/Franklin-pro/news#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
