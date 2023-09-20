@@ -53,6 +53,7 @@ class userContorller{
     static async getOneuser(req,res){
         const id = req.params.id
         const user = await User.findById(id)
+       
 
         if(!user){
             return errorMessages(res,201,`no user found with that ${id}`)

@@ -13,6 +13,7 @@ router.post(
  validator.inputValidator,
 usercontroller.createUser)
 router.get("/",usercontroller.getAllUsers)
+router.get("/:id",usercontroller.getOneuser)
 router.delete("/",verifyAccess("user"),usercontroller.deleteAllUsers)
 router.delete("/:id",usercontroller.deleteOneUser)
 router.patch("/:id",usercontroller.userUpdate)
