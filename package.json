@@ -4,7 +4,8 @@
   "description": "news is website that use to read a all news and comment and like or unlike the news and can also be notified for new post news.  admin can see all subscribers , post a new news, update and delete the news.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node ./src/index.js",
+    "start": "babel-node ./src/index.js",
+    "dev": "nodemon --exec babel-node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,7 +30,12 @@
     "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.4.4",
+    "nodemailer": "^6.9.5"
+  },
+  "devDependencies": {
     "nodemon": "^3.0.1"
   }
 }

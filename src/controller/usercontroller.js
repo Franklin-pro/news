@@ -4,46 +4,40 @@ import express from 'express'
 import User from '../model/user';
 import successMessages from '../itills/successMessages';
 import errorMessages from '../itills/errorMessages';
-import bcrypt from 'bcrypt'
-
+import bcrypt, { compare } from 'bcrypt'
+import jwt from "jsonwebtoken";
 class userContorller{
     static async createUser(req,res){
         const {firstName,lastName,email,password}=req.body
        try{
         if(req.body.password!== req.body.confirmPassword){
-            return res.status(403).json({
-                message:"password and confirm password not match"
-            })
+            return errorMessages(res,403,'password and confirmPassword not match')
+            // return res.status(403).json({
+            //     message:"password and confirm password not match"
+            // })
         }
         const hashPassword=bcrypt.hashSync(req.body.password,10)
        
 
-        const user = await User.create({firstName,lastName,email,password:hashPassword});
+        const users = await User.create({firstName,lastName,email,password:hashPassword});
 
-        return successMessages(res,201,`user created`,user)
+        return successMessages(res,201,`user created`,users)
    
        } catch(error){
-        if(error.code == 11000){
-            return errorMessages(res,403,'user already exist')
-            // return res.status(403).json({
-            //     message:`user already exist`
-            // })
-        }else{
-            return res.status(500).json({
-                message:error
-            })
-        }
+      
+            // return errorMessages(res,403,error)
+        
        }
     }
     static async getAllUsers(req,res){
-        const user = await User.find();
-        if(!User || User.length==0){
+        const users = await User.find();
+        if(!users || users.length==0){
             return errorMessages(res,401,'no user found')
             // return res.status(401).json({
             //     message:'no user found'
             // })
-        }else if(User){
-            return successMessages(res,201,`all ${user.length} found`,user)
+        }else if(users){
+            return successMessages(res,201,`all ${users.length} found`,users)
         }
     }
     static async deleteAllUsers(req,res){
@@ -66,6 +60,45 @@ class userContorller{
             return successMessages(res,200,`user successfully retrives`,user)
         }
     }
+    static async deleteOneUser(req,res){
+        const id=req.params.id
+        const user= await User.findByIdAndDelete(id)
+        if(!user){
+          errorMessages(res,401,`user with id ${id} not found`)
+        }else{
+          successMessages(res,200,`user successfuly deleted`)
+        }
+      }
+      static async userUpdate(req,res){
+        const id = req.params.id
+        const user = await User.findByIdAndUpdate(id,req.body,{new:true})
+        if(!user){
+            return errorMessages(res,401,`user not found`)
+        }else{
+            return successMessages(res,200,`user update successfully`,user)
+        }
+      }
+      static async login(req,res){
+        const{email,password}=req.body
+        const user = await User.findOne({email})
+        if(!user){
+            return errorMessages(res,401,`invalid email or password`)
+        }else{
+            const comparePassword =bcrypt.compareSync(password,user.password)
+
+            if(!comparePassword){
+                return errorMessages(res,401,`invalid email or password`)
+            }else{
+                const token = jwt.sign({user:user},process.env.SECRET_KEY,{expiresIn:"1d"})
+            return res.status(200).json({
+                token:token,
+                data:{
+                    user:user
+                }
+            })
+            }
+        }
+      }
 }
 
 export default userContorller

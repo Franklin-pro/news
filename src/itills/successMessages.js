@@ -1,7 +1,8 @@
-const successMessages = (res,status,message,data)=>{
+const successMessages = (res,status,message,token,data)=>{
     res.status(status).json({
         message:message,
-        data:data
+        data:data,
+        token:token
         
     })
 }
