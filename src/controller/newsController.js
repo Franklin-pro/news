@@ -73,7 +73,7 @@ class newsController{
        if(!news){
         return errorMessages(res,401,`news with id ${id} not found`)
        }else{
-        return successMessages(res,200,`news successfuly deleted`,news)
+        return successMessages(res,200,`news successfuly deleted`)
        }
       }
       static async likes(req,res){

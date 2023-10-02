@@ -1,4 +1,4 @@
-const successMessages = (res,status,message,token,data)=>{
+const successMessages = (res,status,message,data,token)=>{
     res.status(status).json({
         message:message,
         data:data,
