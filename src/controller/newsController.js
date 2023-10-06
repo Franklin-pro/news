@@ -7,9 +7,9 @@ import sendEmail from '../itills/email'
 
 class newsController{
     static async newsletter(req,res){
-        const{newsMainTittle,newTittle,newsDescription,newsImage,publisher}=req.body
+        const{newsMainTIttle,newsTittle,newsDescription,newsImage,publisher}=req.body
 
-        const news = await News.create({newsMainTittle,newTittle,newsDescription,newsImage,publisher})
+        const news = await News.create({newsMainTIttle,newsTittle,newsDescription,newsImage,publisher})
         if(!news){
             return errorMessages(res,403,`news not posted`)
         }else{
