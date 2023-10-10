@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const newsSchemas = new mongoose.Schema({
   newsMainTIttle: {
     type: String,
-    required:true
+ 
   },
   newsTittle: {
     type: String,
-    required:true
+
   },
   newsDescription: {
     type: String,
