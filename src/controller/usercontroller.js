@@ -8,7 +8,7 @@ import bcrypt, { compare } from 'bcrypt'
 import jwt from "jsonwebtoken";
 class userContorller{
     static async createUser(req,res){
-        const {firstName,lastName,email,password}=req.body
+        const {firstName,lastName,email,password,role}=req.body
        try{
         if(req.body.password!== req.body.confirmPassword){
             return errorMessages(res,403,'password and confirmPassword not match')
@@ -19,7 +19,7 @@ class userContorller{
         const hashPassword=bcrypt.hashSync(req.body.password,10)
        
 
-        const users = await User.create({firstName,lastName,email,password:hashPassword});
+        const users = await User.create({firstName,lastName,email,password:hashPassword,role});
 
         return successMessages(res,201,`user created`,users)
    
