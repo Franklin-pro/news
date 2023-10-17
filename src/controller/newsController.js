@@ -13,7 +13,7 @@ class newsController{
         if(!news){
             return errorMessages(res,403,`news not posted`)
         }else{
-            return successMessages(res,200,`news posted successfully`,news)
+            return successMessages(res,201,`news posted successfully`,news)
         }
     }
     static async getAllNews(req,res){
